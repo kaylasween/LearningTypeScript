@@ -1,5 +1,42 @@
 // Write your types here! ✨
 
+type MotionBase = {
+	annoyedJustice?: boolean;
+	from: "plaintiff" | "defendant";
+	reason: string;
+};
+
+type PreTrial = {
+	step: "pre-trial";
+	classification: "dismiss" | "suppress" | "venue";
+};
+
+type PostTrial = {
+	step: "post-trial";
+	classification: "acquittal" | "correction" | "new trial";
+};
+
+type HoursSpent = {
+	deliberationHours: number;
+};
+
+type Allowed = MotionBase &
+	HoursSpent & {
+		status: "allowed";
+	};
+
+type Denied = MotionBase &
+	HoursSpent & {
+		status: "denied";
+	};
+
+type Pending = MotionBase & {
+	status: "pending";
+	estimatedDeliberationHours: number;
+};
+
+type Motion = (PreTrial | PostTrial) & (Allowed | Denied | Pending);
+
 export const motions: Motion[] = [
 	{
 		annoyedJustice: true,
